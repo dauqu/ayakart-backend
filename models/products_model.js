@@ -5,6 +5,12 @@ const allreviews = new mongoose.Schema({
   comments: String,
   rating: Number,
 });
+
+//gallery
+const gallery = new mongoose.Schema({
+  image: Array,
+});
+
 //Schema
 const ProductsSchema = new mongoose.Schema({
   title: {
@@ -47,10 +53,10 @@ const ProductsSchema = new mongoose.Schema({
     type: Array,
   },
   sale_price: {
-    type: Number,
+    type: Number, 
   },
   regular_price: {
-    type: Number,
+    type: Number, 
   },
   stock_status: {
     type: String,

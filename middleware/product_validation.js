@@ -24,7 +24,7 @@ async function product_validation(req, res, next) {
       !productTitle ||
       !productDescription ||
       !productCategory ||
-      !productGallery ||
+      !productGallery || 
       !featuredImage ||
       !regularPrice ||
       !salePrice ||

@@ -27,6 +27,60 @@ router.get("/count", async (req, res) => {
   }
 });
 
+//Get One
+router.get("/:id", async (req, res) => {
+  try {
+    const product = await Products_Model.findById(req.params.id);
+    res.json(product);
+  } catch (error) {
+    res.status(500).json({ message: error.message, status: "error" });
+  }
+});
+
+//Get One By Slug
+router.get("/slug/:slug", async (req, res) => {
+  try {
+    const product = await Products_Model.findOne({ slug: req.params.slug });
+    res.json(product);
+  } catch (error) {
+    res.status(500).json({ message: err.message, status: "error" });
+  }
+});
+
+//Get One By Category
+router.get("/category/:category", async (req, res) => {
+  try {
+    const product = await Products_Model.find({
+      category: req.params.category,
+    });
+    res.json(product);
+  } catch (error) {
+    res.status(500).json({ message: err.message, status: "error" });
+  }
+});
+
+//Create Search API
+router.get("/search/:name", async (req, res) => {
+  const search = req.params.name;
+  console.log(search);
+  try {
+    const product = await Products_Model.find({
+      "$or": [
+        { title: { $regex: search, $options: "i" } },
+        { slug: { $regex: search, $options: "i" } },
+        { description: { $regex: search, $options: "i" } },
+        { category: { $regex: search, $options: "i" } },
+        { tags: { $regex: search, $options: "i" } },
+      ],
+    });
+    res.json(product);
+  } catch (error) {
+    res.status(500).json({ message: "error.message", status: "error" });
+  }
+});
+
+
+
 //Post One
 router.post("/", product_validation, async (req, res) => {
   //Generate Random SKU
@@ -47,7 +101,7 @@ router.post("/", product_validation, async (req, res) => {
     status: "active",
     all_reviews: {
       comments: "This is amazing product i like that",
-      rating: 3.5,
+      rating: 4.5,
     },
     gallery: req.body.productGallery,
     featured_image: req.body.featuredImage,
@@ -72,26 +126,6 @@ router.post("/", product_validation, async (req, res) => {
   }
 });
 
-//Get One
-router.get("/:id", async (req, res) => {
-  try {
-    const product = await Products_Model.findById(req.params.id);
-    res.json(product);
-  } catch (error) {
-    res.status(500).json({ message: err.message, status: "error" });
-  }
-});
-
-//Get One By Slug
-router.get("/slug/:slug", async (req, res) => {
-  try {
-    const product = await Products_Model.findOne({ slug: req.params.slug });
-    res.json(product);
-  } catch (error) {
-    res.status(500).json({ message: err.message, status: "error" });
-  }
-}); 
- 
 //Push Review
 router.patch("/:id/reviews", async (req, res) => {
   try {

@@ -111,6 +111,7 @@ router.post("/", checkToken, async (req, res) => {
     order_by: fname,
     currency: req.body.currency,
     status: "active",
+    payment_status: "pending",
     phone_number: req.body.phone,
     email: req.body.email,
     payment_method: req.body.payment_method,
@@ -259,5 +260,6 @@ async function changeStatus(req, res, next) {
 
   next();
 }
+
 
 module.exports = router;

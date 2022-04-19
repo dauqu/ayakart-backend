@@ -8,6 +8,11 @@ const OrdersSchema = new mongoose.Schema({
   },
   order_by: {
     type: String,
+    required: true,
+  },
+  payment_status: {
+    type: String,
+    required: true,
   },
   date: {
     type: Date,
