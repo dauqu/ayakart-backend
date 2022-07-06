@@ -77,7 +77,7 @@ async function validateRegister(req, res, next) {
       status: "error",
     });
 
-  next();
+  next(); 
 }
 
-module.exports = router;
+module.exports = router; 

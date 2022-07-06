@@ -43,7 +43,7 @@ router.post("/", async (req, res) => {
   //Get User id from tocken
   const have_valid_tokem = JWT.verify(token, process.env.JWT_SECRET);
   const id_from_token = have_valid_tokem.id;
- 
+
   //Get User from id
   const user = await User_Model.findById(id_from_token);
 
@@ -61,7 +61,7 @@ router.post("/", async (req, res) => {
     res.status(201).json(newSupport);
   } catch (error) {
     res.status(400).json({ message: error.message, status: "error" });
-  } 
+  }
 });
 
 //Push data in message array
@@ -91,12 +91,12 @@ router.post("/:id/message", async (req, res) => {
     await support.save();
     return res
       .status(200)
-      .json({ message: "Message added successfully", status: "success" }); 
+      .json({ message: "Message added successfully", status: "success" });
   } catch (error) {
     res.status(500).json({ message: error.message, status: "error" });
   }
-}); 
- 
+});
+
 //Delete data from message array
 router.delete("/:id/message/:messageId", async (req, res) => {
   try {
@@ -146,13 +146,11 @@ router.patch("/:id", async (req, res) => {
         .status(404)
         .json({ message: "Support not found", status: "error" });
     }
-
     support.title = req.body.title;
     support.description = req.body.description;
     support.status = req.body.status;
     support.createdAt = req.body.createdAt;
     support.updatedAt = req.body.updatedAt;
-
     const updatedSupport = await support.save();
     res.json(updatedSupport);
   } catch (error) {
@@ -164,13 +162,11 @@ router.patch("/:id", async (req, res) => {
 router.delete("/:id", async (req, res) => {
   try {
     const support = await Support_Model.findById(req.params.id);
-
     if (!support) {
       return res
         .status(404)
         .json({ message: "Support not found", status: "error" });
     }
-
     await support.remove();
     res.json({ message: "Deleted", status: "success" });
   } catch (error) {

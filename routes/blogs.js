@@ -125,7 +125,6 @@ async function delete_blog(req, res, next) {
         status: "warning",
       });
     }
-
     next();
   } catch (error) {
     res.status(500).json({ message: error.message, status: "error" });

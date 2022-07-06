@@ -37,6 +37,7 @@ connectDB();
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/public/index.html");
 });
+
 //Create User API
 app.use("/api/users", require("./routes/users"));
 
